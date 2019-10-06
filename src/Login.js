@@ -88,7 +88,7 @@ class LoginComponent extends Component {
                 break;
 
             case "password":
-                value === "" ? message = "Please enter your password" : message="";
+                value === "" ? message = "Please enter your password" : message = "";
                 break
 
             default:
@@ -112,82 +112,81 @@ class LoginComponent extends Component {
             email: this.state.form.email,
             password: this.state.form.password
         }).then((response) => {
-            response = response.data.data;
+            response = response.data;
             localStorage.setItem('email', this.state.form.email);
-            localStorage.setItem('id', response.id);
-            localStorage.setItem('token',response.token);
+            localStorage.setItem('token', response.token);
             window.location = '/dashboard';
-    }).catch((error) => {
-        this.setState(() => ({ errorMessage: error.data.error }));
-    }).finally(() => {
-        this.setState(() => ({ loading: false }))
-    });
+        }).catch((error) => {
+            this.setState(() => ({ errorMessage: error.error }));
+        }).finally(() => {
+            this.setState(() => ({ loading: false }))
+        });
     }
 
-handleClick = () => {
-    this.setState({ notRegisterd: true });
-}
+    handleClick = () => {
+        this.setState({ notRegisterd: true });
+    }
 
 
-render() {
-    const { email, password } = this.state.form;
-    const { formErrMsg } = this.state
-    const { classes } = this.props;
-    return (
-        <React.Fragment>
-            {this.state.notRegisterd && <Redirect to={"/register"} />}
-            {(this.state.loading) && <LinearProgress />}
-            <br></br><br />
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-lg-5 col-md-9">
-                        <main className={classes.main} style={{ marginTop: "-20px" }}>
-                            <CssBaseline />
-                            <Paper className={classes.paper}>
-                                <Avatar className={classes.avatar}>
-                                    <AccountCircleRoundedIcon fontSize='inherit' />
-                                </Avatar>
-                                <div className="row text-center userSelector">
-                                    <Typography component="h1" variant="h5">
-                                        Login
+    render() {
+        const { email, password } = this.state.form;
+        const { formErrMsg } = this.state
+        const { classes } = this.props;
+        return (
+            <React.Fragment>
+                {this.state.notRegisterd && <Redirect to={"/register"} />}
+                {(this.state.loading) && <LinearProgress />}
+                <br></br><br />
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-lg-5 col-md-9">
+                            <main className={classes.main} style={{ marginTop: "-20px" }}>
+                                <CssBaseline />
+                                <Paper className={classes.paper}>
+                                    <Avatar className={classes.avatar}>
+                                        <AccountCircleRoundedIcon fontSize='inherit' />
+                                    </Avatar>
+                                    <div className="row text-center userSelector">
+                                        <Typography component="h1" variant="h5">
+                                            Login
                               </Typography>
-                                </div>
+                                    </div>
 
-                                <form className={classes.form} onSubmit={this.submitSignIn}>
-                                    <FormControl margin="normal" required className={classes.input} fullWidth >
-                                        <TextField autoComplete="uemail" autoFocus type="Email" className={classes.textField} label="Email *"
-                                            id="uemail" name="email" variant="outlined"
-                                            value={email} onChange={this.handleInputChange} />
-                                        <span className="text-danger">{formErrMsg.email}</span>
-                                    </FormControl>
-                                    <FormControl margin="normal" required className={classes.input} fullWidth>
-                                        <TextField autoComplete="password" type="password"
-                                            id="password" name="password" variant="outlined" label="Password *"
-                                            value={password} onChange={this.handleInputChange} />
-                                        <span className="text-danger">{formErrMsg.password}</span>
-                                    </FormControl>
+                                    <form className={classes.form} onSubmit={this.submitSignIn}>
+                                        <FormControl margin="normal" required className={classes.input} fullWidth >
+                                            <TextField autoComplete="uemail" autoFocus type="Email" className={classes.textField} label="Email *"
+                                                id="uemail" name="email" variant="outlined"
+                                                value={email} onChange={this.handleInputChange} />
+                                            <span className="text-danger">{formErrMsg.email}</span>
+                                        </FormControl>
+                                        <FormControl margin="normal" required className={classes.input} fullWidth>
+                                            <TextField autoComplete="password" type="password"
+                                                id="password" name="password" variant="outlined" label="Password *"
+                                                value={password} onChange={this.handleInputChange} />
+                                            <span className="text-danger">{formErrMsg.password}</span>
+                                        </FormControl>
 
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.submit}
-                                        disabled={!this.state.formValid.buttonActive}
-                                    >Login
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className={classes.submit}
+                                            disabled={!this.state.formValid.buttonActive}
+                                        >Login
                     </Button>
-                    {this.state.errorMessage && <div className='text-danger'>{this.state.errorMessage}</div>}
+                                        {this.state.errorMessage && <div className='text-danger'>{this.state.errorMessage}</div>}
 
-                                </form><br />
-                                <Link to="/register" exact={"true"} onClick={this.handleClick}>New to Application? Create an account</Link><br />
-                            </Paper>
-                        </main>
+                                    </form><br />
+                                    <Link to="/register" exact={"true"} onClick={this.handleClick}>New to Application? Create an account</Link><br />
+                                </Paper>
+                            </main>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </React.Fragment>
-    )
-}
+            </React.Fragment>
+        )
+    }
 }
 LoginComponent.propTypes = {
     classes: PropTypes.object.isRequired,

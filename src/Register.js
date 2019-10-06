@@ -81,7 +81,7 @@ class RegisterComponent extends Component {
         errorMessage: "",
         loading: false
     }
-    
+
 
     handleInputChange = (e) => {
         const value = e.target.value;
@@ -131,16 +131,16 @@ class RegisterComponent extends Component {
         const registerUrl = 'http://reqres.in/api/register';
         this.setState(() => ({ loading: true }))
         axios.post(registerUrl, {
-                email: this.state.form.email,
-                password: this.state.form.password
+            email: this.state.form.email,
+            password: this.state.form.password
         }).then((response) => {
-            response = response.data.data;
+            response = response.data;
             localStorage.setItem('id', response.id);
             localStorage.setItem('email', this.state.form.email);
-            localStorage.setItem('token',response.token);
+            localStorage.setItem('token', response.token);
             window.location = "/dashboard"
         }).catch((error) => {
-            this.setState(() => ({ errorMessage: error.data }));
+            this.setState(() => ({ errorMessage: error.error }));
         }).finally(() => {
             this.setState(() => ({ loading: false }))
         });
