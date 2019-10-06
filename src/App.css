@@ -140,7 +140,9 @@ th {
     position: relative;
     z-index: 1;
   }
-
+.nav-custom {
+  padding-right: 15px;
+}
     .adminButton i {
       font-size: 22px;
     }

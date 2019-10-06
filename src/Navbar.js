@@ -7,14 +7,32 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import withStyles from '@material-ui/core/styles/withStyles';
+import PropTypes from 'prop-types';
+import HomeIcon from '@material-ui/icons/Home';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import './App.css';
-export default class Navbar extends Component {
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+});
+
+class Navbar extends Component {
     logout = () => {
         localStorage.clear();
         // this.props.history.push("./dashboard")
         window.location = "/dashboard"
     }
     render() {
+        const { classes } = this.props;
         return (
             <React.Fragment>
                 <nav className="navbar navbar-expand-lg navbar-light bg-custom">
@@ -22,6 +40,21 @@ export default class Navbar extends Component {
                         <div className="navbar-brand mx-5">
                             SEERS
           </div>
+                        <Box display='flex' flexDirection='row'>
+                            <NavLink className='nav-item' to='/dashboard'><Box className='nav-custom'>
+                                <Typography variant="h6" className={classes.title}>
+                                    <HomeIcon/>Home
+          </Typography></Box></NavLink>
+          <NavLink className='nav-item' to='/patients'><Box className='nav-custom'><Typography variant="h6" className={classes.title}>
+                                <SupervisorAccountIcon/>Patients
+          </Typography></Box></NavLink>
+          <NavLink className='nav-item' to='/appointments'><Box className='nav-custom'><Typography variant="h6" className={classes.title}>
+                                <EventNoteIcon/>Appointments
+          </Typography></Box></NavLink>
+          <NavLink className='nav-item' to='/messages'><Box className='nav-custom'><Typography variant="h6" className={classes.title}>
+                                Messages
+          </Typography></Box></NavLink>
+                        </Box>
                         {(localStorage.getItem('email') && localStorage.getItem('token')) ? (
                             <React.Fragment>
                                 <Box display="flex" flexDirection="row-reverse">
@@ -64,9 +97,13 @@ export default class Navbar extends Component {
 
                             </React.Fragment>)}
                     </div>
-                </nav>
-            </React.Fragment>
+                </nav >
+            </React.Fragment >
 
         );
     }
 }
+Navbar.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+export default (withStyles(styles)(Navbar));
