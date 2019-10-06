@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import HomeIcon from '@material-ui/icons/Home';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import MessageIcon from '@material-ui/icons/Message';
 import './App.css';
 const styles = theme => ({
     root: {
@@ -52,7 +53,7 @@ class Navbar extends Component {
                                 <EventNoteIcon/>Appointments
           </Typography></Box></NavLink>
           <NavLink className='nav-item' to='/messages'><Box className='nav-custom'><Typography variant="h6" className={classes.title}>
-                                Messages
+                                <MessageIcon/>Messages
           </Typography></Box></NavLink>
                         </Box>
                         {(localStorage.getItem('email') && localStorage.getItem('token')) ? (
